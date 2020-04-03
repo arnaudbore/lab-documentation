@@ -1,3 +1,4 @@
+# COMPUTE CANADA
 
 The lab applies for storage space and compute time on Compute Canada every year.
 These resources are limited and are to be shared fairly across members of the lab.
