@@ -5,10 +5,20 @@ These resources are limited and are to be shared fairly across members of the la
 Given that no member of the lab has priviledged admin rights, this fairness relies on everyone adopting a clear code of conduct, and shared organization.
 If not, other members of the lab will see their analysis/data transfer/... fail, and they will be discouraged to use these incredible resources, and to do research at all.
 
-When you are new to Compute Canada, we will ask you to
+When you are new to Compute Canada, we will ask you to run a setup script that will set data management access and give you access to utils for project management, including:
 
-- delete the default folders that Compute Canada creates for each user in the shared storage spaces on each cluster  that you are using
-  `for d in /{project,nearline}/*-pbellec/$USER ; do rmdir $d && ln -s /dev/null $d ; done`
+- setup ACLs for the data admin to the project and nearline folders
+- add project management commands to your bash environment
+- generate SSH keys if not already created, and help you set them up on Github for easier access
+- configure the ssh agent and keychain to avoid typing your ssh key password each time you push to github or ssh to another server.
+- configure git global variables
+
+
+You can do it just once on each cluster:
+
+```
+/project/def-pbellec/share/data_admin/utils/setup_user_account.sh
+```
 
 When you download a dataset:
 
@@ -25,13 +35,13 @@ When you download a dataset:
   Set read access rights through ACLs to all your colleagues who have signed the agreement, and will be using the data. Be sure to also give read access rights to the lab's data admins.
 
   ```
-  setfacl -R u:colleague1:r u:colleague2:r .... u:admin1:r u:admin2:r ... ~/projects/rrg-pbellec/DATA/new_dataset
+  setfacl -R -m u:colleague1:rX u:colleague2:rX .... u:admin1:rX u:admin2:rX ... ~/projects/rrg-pbellec/DATA/new_dataset
   ```
 
   If the other colleagues will contribute to the analysis, give them write access to the derivatives folders.
 
   ```
-  setfacl -R u:colleague1:rw u:colleague2:rw ~/projects/rrg-pbellec/DATA/new_dataset/derivatives
+  setfacl -R -m u:colleague1:rwX u:colleague2:rwX ~/projects/rrg-pbellec/DATA/new_dataset/derivatives
   ```
 
  5.2 For all other types of datasets.
